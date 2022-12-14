@@ -1,3 +1,8 @@
+require_relative './aged_brie'
+require_relative './sulfuras'
+require_relative './backstage_pass'
+require_relative './normal_items'
+
 class GildedRose
 
   def initialize(items)
@@ -8,9 +13,17 @@ class GildedRose
     @items.each do |item|
       if check_quality(item)
         if item.name == 'Aged Brie'
-          aged_brie(item)
+          brie = Agedbrie.new(item)
+          brie.update_quality
+        elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
+          pass = Backstagepass.new(item)
+          pass.update_quality
+        elsif item.name == 'Sulfuras, Hand of Ragnaros'
+          sulfuras = Sulfuras.new(item)
+          sulfuras.update_quality
         else
-          normal_item(item)
+          normal = Normal_items.new(item)
+          normal.update_quality
         end
       end
     end
@@ -22,26 +35,12 @@ class GildedRose
     end
   end
 
-  def sulfuras(item)
-    if item.name == 'Sulfuras, Hand of Ragnaros'
-      item
-    end
-  end
 
-  def aged_brie(item)
-    p item
-    if item.sell_in <= 0 && item.quality <= 48
-      item.sell_in -= 1
-      item.quality += 2
-    else
-      item.sell_in -= 1
-      item.quality += 1 unless item.quality >= 50
-    end
-  end
 
-  def normal_item
-  end
+  
+
 end
+
 
 class Item
   attr_accessor :name, :sell_in, :quality
