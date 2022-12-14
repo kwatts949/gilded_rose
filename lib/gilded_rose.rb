@@ -53,8 +53,6 @@ class GildedRose
   end
 end
 
-def Sulfuras
-end
 class Item
   attr_accessor :name, :sell_in, :quality
 
@@ -68,3 +66,4 @@ class Item
     "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
+

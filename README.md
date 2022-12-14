@@ -1,5 +1,3 @@
-# gilded_rose
-
 ======================================
 Gilded Rose Requirements Specification
 ======================================
