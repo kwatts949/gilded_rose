@@ -10,19 +10,33 @@ describe GildedRose do
     end
 
     context 'Sulfuras' do
-      it "does not change the quality or sell-in date for Sulfuras after 1 day" do
+      it "does not change the quality or sell-in date after 1 day" do
         items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 80)]
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq 0
         expect(items[0].quality).to eq 80
       end
 
-      it "does not change the quality or sell-in date for Sulfuras after 2 days" do
+      it "does not change the quality or sell-in date after 2 days" do
         items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 80)]
         GildedRose.new(items).update_quality()
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq 0
         expect(items[0].quality).to eq 80
+      end
+
+      it "does not change increases the quality past 50" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 50)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 0
+        expect(items[0].quality).to eq 50
+      end
+
+      it "does not change decreases the quality past 0" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 0
+        expect(items[0].quality).to eq 0
       end
     end
 
@@ -55,6 +69,81 @@ describe GildedRose do
         items = [Item.new("Aged Brie", 0, 49)]
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 50
+      end
+    end
+
+    context 'Normal items' do
+      it "updates the sell-in and quality after 1 day" do
+        items = [Item.new("Elixir of the Mongoose", 5, 7)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 4
+        expect(items[0].quality).to eq 6
+      end
+
+      it "updates the sell-in and quality after 2 days" do
+        items = [Item.new("Elixir of the Mongoose", 5, 7)]
+        GildedRose.new(items).update_quality()
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 3
+        expect(items[0].quality).to eq 5
+      end
+
+      it "updates the sell-in and quality when the sell-in date has passed" do
+        items = [Item.new("Elixir of the Mongoose", 0, 4)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 2
+      end
+
+      it "updates the sell-in and quality when the sell-in date has passed" do
+        items = [Item.new("Elixir of the Mongoose", 0, 4)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 2
+      end
+
+      it "does not decrease the quality past 0" do
+        items = [Item.new("Elixir of the Mongoose", 0, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 0
+      end
+    end
+
+    context 'Backstage passes' do
+      it "updates the sell-in and quality after 1 day" do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 20)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 14
+        expect(items[0].quality).to eq 21
+      end
+
+      it "updates the sell-in and quality when there are 10 days left on the sell-in" do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 20)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 9
+        expect(items[0].quality).to eq 22
+      end
+
+      it "updates the sell-in and quality when there are 5 days left on the sell-in" do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 20)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 4
+        expect(items[0].quality).to eq 23
+      end
+
+      it "updates the sell-in and quality when there are 5 days left on the sell-in" do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 20)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 4
+        expect(items[0].quality).to eq 23
+      end
+
+      it "does not increase quality past 50" do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 4
         expect(items[0].quality).to eq 50
       end
     end
