@@ -11,7 +11,6 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if check_quality(item)
         if item.name == 'Aged Brie'
           brie = Agedbrie.new(item)
           brie.update_quality
@@ -25,22 +24,9 @@ class GildedRose
           normal = Normal_items.new(item)
           normal.update_quality
         end
-      end
     end
   end
-
-  def check_quality(item)
-    if item.quality <= 50 && item.quality >= 0
-      return true
-    end
-  end
-
-
-
-  
-
 end
-
 
 class Item
   attr_accessor :name, :sell_in, :quality

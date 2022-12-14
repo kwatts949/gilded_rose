@@ -90,6 +90,13 @@ describe GildedRose do
       end
 
       it "updates the sell-in and quality when the sell-in date has passed" do
+        items = [Item.new("Elixir of the Mongoose", 0, 3)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 1
+      end
+
+      it "updates the sell-in and quality when the sell-in date has passed" do
         items = [Item.new("Elixir of the Mongoose", 0, 1)]
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq -1
@@ -166,6 +173,17 @@ describe GildedRose do
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq -1
         expect(items[0].quality).to eq 0
+      end
+    end
+
+    context 'multiple items' do
+      it 'updates multiple items correctly' do
+        items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 0), Item.new("Elixir of the Mongoose", 0, 1)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+        expect(items[0].quality).to eq 0
+        expect(items[1].sell_in).to eq -1
+        expect(items[1].quality).to eq 1
       end
     end
   end

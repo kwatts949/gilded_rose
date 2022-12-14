@@ -3,7 +3,7 @@ class Agedbrie
   def initialize(item)
     @item = item
   end
-  
+
   def update_quality()
     @item.sell_in -= 1
     if @item.sell_in <= 0 && @item.quality <= 48
