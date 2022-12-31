@@ -186,5 +186,12 @@ describe GildedRose do
         expect(items[1].quality).to eq 1
       end
     end
+
+    context 'item class' do
+      it 'converts to a string' do
+        item = Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 0)
+        expect(item.to_s).to eq "Backstage passes to a TAFKAL80ETC concert, 0, 0"
+      end
+    end
   end
 end
