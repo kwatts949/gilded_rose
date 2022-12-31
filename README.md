@@ -1,6 +1,15 @@
-======================================
-Gilded Rose Requirements Specification
-======================================
+<h1> Gilded Rose Refactoring Challenge<h1> 
+<div>
+A tech test to practice code refactoring.
+<h5>
+<a href='https://github.com/kwatts949/gilded_rose/blob/main/README.md#Specification'> Specification </a> <span> · </span>
+<a href='https://github.com/kwatts949/gilded_rose/blob/main/README.md#Installation'> Installation </a><span> · </span>
+<a href='https://github.com/kwatts949/gilded_rose/blob/main/README.md#Testing'> Testing </a><span> · </span>
+<a href='https://github.com/kwatts949/banking_app/blob/main/README.md#Process'> Process </a>  
+<h5>
+</div>
+
+# Specification
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a prime location in a
 prominent city ran by a friendly innkeeper named Allison. We also buy and sell only the finest goods.
@@ -36,7 +45,30 @@ for you).
 
 Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a
 legendary item and as such its Quality is 80 and it never alters.
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
+
+# Installation
+
+Clone this repo.
+
+In terminal (Mac), run:
+
+```
+cd gilded_rose
+bundle install
+```
+
+# Testing
+
+To run the tests:
+
+```
+cd gilded_rose
+rspec
+```
+# Process
+
+I refactored the code using TDD. I began by writing tests for Sulfuras and breaking out each item to give it its own set of methods. 
+
+I continued to follow this process for each item - writing tests, writing methods to pass the tests and checking that the code still produced the same outcomes.
+
+Finally, I refactored the code to remove duplication and to break each item out into its own class.
